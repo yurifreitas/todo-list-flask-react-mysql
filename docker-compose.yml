@@ -12,6 +12,12 @@ services:
         build: ./api
         ports:
             - "5000:5000"
+        environment:
+            DB_USER: 'root'
+            DB_PASSWORD: 'root'
+            DB_HOST: 'db'
+            DB_PORT: 3306
+            DB_NAME: 'db_tasks'
     frontend:
         build: ./frontend
         links:
@@ -19,5 +25,9 @@ services:
             - db
         ports:
             - "3000:3000"
+        environment:
+            REACT_APP_AUTH0_DOMAIN: dev-s6n03vzp.us.auth0.com
+            REACT_APP_AUTH0_CLIENT_ID:  kbCvBBR2EMkwPt5hMoqDpRaHv9vwGlRz
         volumes:
             - ./frontend:/usr/src/app
+            - /frontend/node_modules

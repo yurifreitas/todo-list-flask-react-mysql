@@ -1,7 +1,14 @@
 FROM node:latest
-RUN npm install
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+
+ENV CHOKIDAR_USEPOLLING=true
+
+WORKDIR /usr/app
+
+COPY ./ ./
+
+#RUN npm install
 
 EXPOSE 3000
-CMD [ "npm", "start" ]
+
+
+CMD ["npm", "start"]

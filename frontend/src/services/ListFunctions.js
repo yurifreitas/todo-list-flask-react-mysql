@@ -16,11 +16,12 @@ export const getList = () => {
         })
 }
 
-export const addToList = term => {
+export const addToList = data => {
     return axios
         .post(
             'api/task', {
-                title: term
+                title: data.title,
+                descript:data.descript
             }, {
                 headers: { "Content-type": "application/json" }
             })
@@ -29,10 +30,10 @@ export const addToList = term => {
         })
 }
 
-export const deleteItem = term => {
+export const deleteAllItem = () => {
     axios
         .delete(
-            `api/task/${term}`, {
+            `api/task/clearall`, {
                 headers: { "Content-type": "application/json" }
             })
         .then((res) => {
@@ -43,11 +44,11 @@ export const deleteItem = term => {
         })
 }
 
-export const updateItem = (term, id) => {
+export const updateItem = (data, id) => {
     return axios
         .put(
             `api/task/${id}`, {
-                title: term
+                title: data
             }, {
                 headers: { "Content-type": "application/json" }
             })
