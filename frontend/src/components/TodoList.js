@@ -1,39 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { HiOutlineTrash, HiOutlineCheck } from 'react-icons/hi';
-import {getList} from '../services/ListFunctions'
+import {GlobalContext} from '../context/GlobalState';
+
 
 function TodoList() {
-  const [todos, setTodos] = useState([]);
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = getList()
-        setTodos(await response.json());
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
 
-    getData();
-  }, []);
-
-  console.table(todos);
+  const { taskList } =  useContext(GlobalContext);
 
   return (
     <div className='max-w-xl pt-8 pb-12 mx-auto'>
-      {todos.length === 0 ? (
+      {taskList.length === 0 ? (
         <p className='italic text-gray-600'>Nenhuma Tarefa encontrada.</p>
       ) : (
         <div>
           <div className='flex items-center justify-between'>
             <h6 className='text-base font-medium text-gray-600'>Sua Lista</h6>
             <p className='text-sm font-light text-gray-500'>
-              {todos.length} item{todos.length > 1 && 's'}
+              {taskList.length} item{taskList.length > 1 && 's'}
             </p>
           </div>
           <ul className='pt-5'>
-            {todos.map((item) => (
+            {taskList.map((item) => (
               <li
                 key={item._id}
                 className='flex flex-row items-start justify-between py-2.5'

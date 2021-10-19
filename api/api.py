@@ -22,7 +22,7 @@ def get_all_tasks():
     try:
         cur.execute("SELECT * FROM db_tasks.tasks")
         row_headers = [x[0]
-                    for x in cur.description]  # this will extract row headers
+                       for x in cur.description]  # this will extract row headers
         rv = cur.fetchall()
         json_data = []
         for result in rv:
@@ -39,11 +39,15 @@ def add_task():
     connection = mysql.connector.connect(**config)
     cur = connection.cursor()
     title = request.get_json()['title']
+    descript = request.get_json()['descript']
     try:
         cur.execute(
-            "INSERT INTO db_tasks.tasks (title) VALUES ('" + str(title) + "')")
+            "INSERT INTO db_tasks.tasks (title,descript) VALUES ('" + str(title) + "','" + str(descript) + "')")
         connection.commit()
-        result = {'title': title}
+        result = {
+            'title': title,
+            'descricao': descript
+        }
 
         return jsonify({"result": result}), 200
     except:
@@ -57,12 +61,17 @@ def update_task(id):
     connection = mysql.connector.connect(**config)
     cur = connection.cursor()
     title = request.get_json()['title']
+    descript = request.get_json()['descript']
     try:
         cur.execute("UPDATE db_tasks.tasks SET title = '" +
-                    str(title) + "' where id = " + id)
+                    str(title) + "',descript = '" +
+                    str(descript) + "' where id = " + id)
         connection.commit()
 
-        result = {"title": title}
+        result = {
+            'title': title,
+            'descricao': descript
+        }
 
         return jsonify({"result": result}), 200
     except:
@@ -84,6 +93,7 @@ def delete_task(id):
         error = "Erro on delete task"+id
         logging.error(error)
         return jsonify({"error": error}), 500
+
 
 @app.route("/api/task/clearall", methods=['DELETE'])
 def delete_all_task():

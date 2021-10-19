@@ -43,6 +43,20 @@ export const deleteAllItem = () => {
             console.log(res)
         })
 }
+export const deleteItem = (id) => {
+    axios
+        .delete(
+            `api/task/${id}`, {
+                headers: { "Content-type": "application/json" }
+            })
+        .then((res) => {
+            console.log(res)
+        })
+        .catch((res) => {
+            console.log(res)
+        })
+}
+
 
 export const updateItem = (data, id) => {
     return axios
