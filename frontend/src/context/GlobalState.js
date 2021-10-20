@@ -9,23 +9,31 @@ import {
 import AppReducer from "./AppReducer";
 
 const initialState = {
-  taskList: await getList(),
+  taskList: [],
 };
 
 export const GlobalContext = createContext(initialState);
 
-export const GlobalProvider = async ({ children }) => {
+export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   // Actions for changing state
-
-  async function addItemToList(item) {
+  const getItemList = () => {
+    let list = getList();
+    if (list.length > 0) {
+      dispatch({
+        type: "GET_ITEM",
+        payload: list,
+      });
+    }
+  };
+  const addItemToList = (item) => {
     addToList(item);
     dispatch({
       type: "ADD_ITEM",
       payload: item,
     });
-  }
+  };
   function UpdateItemFromList(item) {
     updateItem(item);
     dispatch({
@@ -34,7 +42,7 @@ export const GlobalProvider = async ({ children }) => {
     });
   }
   function removeItemFromList(item) {
-    deleteItem();
+    deleteItem(item);
     dispatch({
       type: "REMOVE_ITEM",
       payload: item,
@@ -55,6 +63,7 @@ export const GlobalProvider = async ({ children }) => {
         removeItemFromList,
         removeAllItemFromList,
         UpdateItemFromList,
+        getItemList,
       }}
     >
       {children}

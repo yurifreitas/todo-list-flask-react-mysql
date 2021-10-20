@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { HiOutlineTrash, HiOutlineCheck } from "react-icons/hi";
-import {GlobalContext} from "../context/GlobalState";
-
+import { GlobalContext } from "../context/GlobalState";
 
 function TodoList() {
-
-  const {  taskList } = useContext(GlobalContext);
+  const { taskList, getItemList, removeItemFromList } =
+    useContext(GlobalContext);
+  useEffect(() => {
+    getItemList();
+  }, []);
   console.log(taskList);
 
   return (
@@ -25,7 +27,7 @@ function TodoList() {
           <ul className="pt-5">
             {taskList.map((item) => (
               <li
-                key={item._id}
+                key={item.id}
                 className="flex flex-row items-start justify-between py-2.5"
               >
                 <div className="flex flex-col items-start justify-start gap-x-5">
@@ -50,10 +52,10 @@ function TodoList() {
 
                     <p
                       className={`text-sm text-gray-500 font-light ${
-                        item.description ? "not-italic" : "italic"
+                        item.descricao ? "not-italic" : "italic"
                       }`}
                     >
-                      {item.description ? item.description : "No description"}
+                      {item.descricao ? item.descricao : "Sem Descrição"}
                     </p>
                   </Link>
                 </div>
@@ -62,7 +64,7 @@ function TodoList() {
                     type="button"
                     className="transition duration-300 ease-in-out"
                     onClick={() => {
-                      console.log("Delete");
+                      removeItemFromList(item);
                     }}
                   >
                     <HiOutlineTrash

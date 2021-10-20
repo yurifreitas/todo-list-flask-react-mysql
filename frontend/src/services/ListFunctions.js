@@ -1,32 +1,39 @@
 import axios from "axios";
-
+const headers = {
+  headers: { "Content-type": "application/json" },
+};
 export const getList = () => {
-  return axios
-    .get("api/tasks", {
-      headers: { "Content-type": "application/json" },
-    })
+  let data = [];
+  axios
+    .get("api/tasks", headers)
     .then((res) => {
-      var data = [];
       Object.keys(res.data).forEach((key) => {
         var val = res.data[key];
-        data.push([val.title, val.id, val.descript]);
-      });
+        var isCompleted;
+        if (val.title & val.id & val.descript) {
+          isCompleted = true;
+        } else {
+          isCompleted = false;
+        }
 
-      return data;
+        data.push([val.title, val.id, val.descript, isCompleted]);
+      });
+    })
+    .catch((res) => {
+      console.error(res);
     });
+  return data;
 };
 
 export const addToList = (data) => {
-  return axios
+  axios
     .post(
       "api/task",
       {
         title: data.title,
         descript: data.descript,
       },
-      {
-        headers: { "Content-type": "application/json" },
-      }
+      headers
     )
     .then((res) => {
       console.log(res);
@@ -35,9 +42,7 @@ export const addToList = (data) => {
 
 export const deleteAllItem = () => {
   axios
-    .delete(`api/task/clearall`, {
-      headers: { "Content-type": "application/json" },
-    })
+    .delete(`clearall`, headers)
     .then((res) => {
       console.log(res);
     })
@@ -47,9 +52,7 @@ export const deleteAllItem = () => {
 };
 export const deleteItem = (id) => {
   axios
-    .delete(`api/task/${id}`, {
-      headers: { "Content-type": "application/json" },
-    })
+    .delete(`${id}`, headers)
     .then((res) => {
       console.log(res);
     })
@@ -61,14 +64,12 @@ export const deleteItem = (id) => {
 export const updateItem = (data, id) => {
   axios
     .put(
-      `api/task/${id}`,
+      `${id}`,
       {
         title: data.title,
         descript: data.descript,
       },
-      {
-        headers: { "Content-type": "application/json" },
-      }
+      headers
     )
     .then((res) => {
       console.log(res);
