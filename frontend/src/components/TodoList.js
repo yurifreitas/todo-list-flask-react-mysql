@@ -8,9 +8,10 @@ function TodoList() {
   const { taskList, getItemList, removeItemFromList } =
     useContext(GlobalContext);
   useEffect(() => {
-    getItemList();
-  }, []);
-  console.log(taskList);
+    getItemList().then(() => {
+      console.log(taskList);
+    });
+  }, [taskList]);
 
   return (
     <div className="max-w-xl pt-8 pb-12 mx-auto">
@@ -32,7 +33,7 @@ function TodoList() {
               >
                 <div className="flex flex-col items-start justify-start gap-x-5">
                   <Link
-                    to={`/todo/${item._id}`}
+                    to={`/todo/${item.id}`}
                     id={item.id}
                     htmlFor={item.title}
                   >
@@ -52,10 +53,10 @@ function TodoList() {
 
                     <p
                       className={`text-sm text-gray-500 font-light ${
-                        item.descricao ? "not-italic" : "italic"
+                        item.descript ? "not-italic" : "italic"
                       }`}
                     >
-                      {item.descricao ? item.descricao : "Sem Descrição"}
+                      {item.descript ? item.descript : "Sem Descrição"}
                     </p>
                   </Link>
                 </div>

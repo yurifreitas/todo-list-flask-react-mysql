@@ -19,39 +19,44 @@ export const GlobalProvider = ({ children }) => {
 
   // Actions for changing state
   const getItemList = () => {
-    let list = getList();
-    if (list.length > 0) {
-      dispatch({
-        type: "GET_ITEM",
-        payload: list,
-      });
-    }
+    getList().then((resp) => {
+      if (resp.length > 0) {
+        dispatch({
+          type: "GET_ITEM",
+          payload: resp.data,
+        });
+      }
+    });
   };
   const addItemToList = (item) => {
-    addToList(item);
-    dispatch({
-      type: "ADD_ITEM",
-      payload: item,
+    addToList(item).then(() => {
+      dispatch({
+        type: "ADD_ITEM",
+        payload: item,
+      });
     });
   };
   function UpdateItemFromList(item) {
-    updateItem(item);
-    dispatch({
-      type: "UPDATE_ITEM",
-      payload: item,
+    updateItem(item).then(() => {
+      dispatch({
+        type: "UPDATE_ITEM",
+        payload: item,
+      });
     });
   }
   function removeItemFromList(item) {
-    deleteItem(item);
-    dispatch({
-      type: "REMOVE_ITEM",
-      payload: item,
+    deleteItem(item).then(() => {
+      dispatch({
+        type: "REMOVE_ITEM",
+        payload: item,
+      });
     });
   }
   function removeAllItemFromList() {
-    deleteAllItem();
-    dispatch({
-      type: "REMOVE_ALL_ITEM",
+    deleteAllItem().then(() => {
+      dispatch({
+        type: "REMOVE_ALL_ITEM",
+      });
     });
   }
 

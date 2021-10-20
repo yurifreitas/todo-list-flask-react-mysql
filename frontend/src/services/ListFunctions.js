@@ -2,26 +2,17 @@ import axios from "axios";
 const headers = {
   headers: { "Content-type": "application/json" },
 };
-export const getList = () => {
-  let data = [];
-  axios
-    .get("api/tasks", headers)
-    .then((res) => {
-      Object.keys(res.data).forEach((key) => {
-        var val = res.data[key];
-        var isCompleted;
-        if (val.title & val.id & val.descript) {
-          isCompleted = true;
-        } else {
-          isCompleted = false;
-        }
-
-        data.push([val.title, val.id, val.descript, isCompleted]);
-      });
-    })
-    .catch((res) => {
-      console.error(res);
-    });
+export const getList = async () => {
+  var data;
+  const { data: response } = await axios.get("api/tasks", headers);
+  Object.keys(response).forEach((key) => {
+    var val = response[key];
+    var isCompleted = { isCompleted: true };
+    if (!val.title | !val.id | !val.descript) {
+      isCompleted = { isCompleted: true };
+    }
+    data.push(...val, isCompleted);
+  });
   return data;
 };
 
@@ -36,7 +27,7 @@ export const addToList = (data) => {
       headers
     )
     .then((res) => {
-      console.log(res);
+      console.log(res.json());
     });
 };
 
@@ -44,20 +35,20 @@ export const deleteAllItem = () => {
   axios
     .delete(`clearall`, headers)
     .then((res) => {
-      console.log(res);
+      console.log(res.json());
     })
     .catch((res) => {
-      console.log(res);
+      console.log(res.json());
     });
 };
 export const deleteItem = (id) => {
   axios
     .delete(`${id}`, headers)
     .then((res) => {
-      console.log(res);
+      console.log(res.json());
     })
     .catch((res) => {
-      console.log(res);
+      console.log(res.json());
     });
 };
 
@@ -72,9 +63,9 @@ export const updateItem = (data, id) => {
       headers
     )
     .then((res) => {
-      console.log(res);
+      console.log(res.json());
     })
     .catch((res) => {
-      console.log(res);
+      console.log(res.json());
     });
 };
