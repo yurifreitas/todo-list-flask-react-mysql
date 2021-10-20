@@ -1,3 +1,4 @@
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { withAuthenticationRequired, useAuth0 } from '@auth0/auth0-react';
 import Loading from '../components/Loading';

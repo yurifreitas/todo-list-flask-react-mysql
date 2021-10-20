@@ -1,7 +1,5 @@
 FROM node:latest
 
-ENV CHOKIDAR_USEPOLLING=true
-
 WORKDIR /usr/app
 
 COPY ./ ./
