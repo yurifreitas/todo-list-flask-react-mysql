@@ -1,13 +1,27 @@
-import React from 'react';
+import React ,{useState,useEffect} from 'react';
 import { useContext } from "react";
 import { Helmet } from 'react-helmet';
 import { Header, BackHeader, Wrapper } from '../components';
 import { HiOutlineTrash, HiOutlineCheck } from "react-icons/hi";
 import { GlobalContext } from "../context/GlobalState";
+import Loading from '../components/Loading';
+
 function ItemDetails() {
-  const { taskList, removeItemFromList } =
+  var t = {id:1,title:"",descript:"",isCompleted:false}
+  const [loading, setLoading] = useState(false);
+  const [task, setTask] = useState(t);
+  const { taskList, removeItemFromList,getItemList } =
     useContext(GlobalContext);
-  const task = taskList[window.location.pathname.split('/').pop()];
+  const id =window.location.pathname.split('/').pop()
+  useEffect(() => {
+    if(taskList[parseInt(id)-1] == []){
+      setLoading(true);
+      getItemList();
+    }else{
+      setTask(taskList[id]);
+    }
+  }, [taskList])
+  if (loading) return <Loading />;
   return (
     <>
       <Helmet>

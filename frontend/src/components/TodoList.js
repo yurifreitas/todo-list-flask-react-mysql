@@ -8,7 +8,7 @@ function TodoList() {
   const { taskList, getItemList, removeItemFromList } =
     useContext(GlobalContext);
   useEffect(() => {
-    getItemList()
+    getItemList();
   }, [taskList]);
 
   return (
