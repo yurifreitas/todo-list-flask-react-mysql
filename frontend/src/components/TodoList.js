@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
-import { useContext } from "react";
-import { Link } from "react-router-dom";
-import { HiOutlineTrash, HiOutlineCheck } from "react-icons/hi";
-import { GlobalContext } from "../context/GlobalState";
+import React, { useEffect } from 'react';
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { HiOutlineTrash, HiOutlineCheck } from 'react-icons/hi';
+import { GlobalContext } from '../context/GlobalState';
 
 function TodoList() {
-  const { taskList, getItemList, removeItemFromList } =
-    useContext(GlobalContext);
+  const { taskList, removeItemFromList, getItemList } = useContext(GlobalContext);
   useEffect(() => {
-    getItemList();
+    return async () => {
+      await getItemList();
+    };
   }, [taskList]);
-
   return (
     <div className="max-w-xl pt-8 pb-12 mx-auto">
       {taskList.length === 0 ? (
@@ -20,30 +20,20 @@ function TodoList() {
           <div className="flex items-center justify-between">
             <h6 className="text-base font-medium text-gray-600">Sua Lista</h6>
             <p className="text-sm font-light text-gray-500">
-              {taskList.length} item{taskList.length > 1 && "s"}
+              {taskList.length} item{taskList.length > 1 && 's'}
             </p>
           </div>
           <ul className="pt-5">
             {taskList.map((item) => (
-              <li
-                key={item.id}
-                className="flex flex-row items-start justify-between py-2.5"
-              >
+              <li key={item.id} className="flex flex-row items-start justify-between py-2.5">
                 <div className="flex flex-col items-start justify-start gap-x-5">
-                  <Link
-                    to={`/detail/${item.id}`}
-                    id={item.id}
-                    htmlFor={item.title}
-                  >
+                  <Link to={`/detail/${item.id}`} id={item.id} htmlFor={item.title}>
                     {item.isCompleted && (
-                      <HiOutlineCheck
-                        className="inline mr-1.5 text-gray-600"
-                        size={14}
-                      />
+                      <HiOutlineCheck className="inline mr-1.5 text-gray-600" size={14} />
                     )}
                     <h6
                       className={`${
-                        item.isCompleted ? "text-gray-600" : "text-indigo-600"
+                        item.isCompleted ? 'text-gray-600' : 'text-indigo-600'
                       } hover:text-indigo-400 inline transition duration-300 ease-in-out text-base md:text-lg font-medium`}
                     >
                       {item.title}
@@ -51,10 +41,10 @@ function TodoList() {
 
                     <p
                       className={`text-sm text-gray-500 font-light ${
-                        item.descript ? "not-italic" : "italic"
+                        item.descript ? 'not-italic' : 'italic'
                       }`}
                     >
-                      {item.descript ? item.descript : "Sem Descrição"}
+                      {item.descript ? item.descript : 'Sem Descrição'}
                     </p>
                   </Link>
                 </div>
