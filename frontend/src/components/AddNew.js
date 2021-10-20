@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { GlobalContext } from '../context/GlobalState';
-
+import { getList } from '../services/ListFunctions';
 function AddNew() {
   const { register, handleSubmit } = useForm();
-  const { addItemToList } = useContext(GlobalContext);
+  const { getItemList } = useContext(GlobalContext);
 
   const postNewData = async (data) => {
-    addItemToList(data);
+    await getList(data).then(() => {
+      getItemList();
+    });
   };
 
   return (

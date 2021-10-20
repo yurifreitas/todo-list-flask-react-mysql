@@ -6,24 +6,23 @@ import { HiOutlineTrash, HiOutlineCheck } from 'react-icons/hi';
 import { GlobalContext } from '../context/GlobalState';
 import Loading from '../components/Loading';
 import { useHistory } from 'react-router-dom';
-
+import { getList } from '../services/ListFunctions';
 function ItemDetails() {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [task, setTask] = useState('');
-  const { taskList, removeItemFromList, getItemList } = useContext(GlobalContext);
+  const { taskList, removeItemFromList } = useContext(GlobalContext);
   const id = window.location.pathname.split('/').pop();
 
-  useEffect(() => {
-    () => {
-      getItemList();
+  useEffect(async () => {
+    await getList().then(() => {
       if (taskList.length == 0 || taskList[parseInt(id) - 1] == undefined) {
         history.push('/');
       } else {
         setTask(taskList[parseInt(id) - 1]);
         setLoading(false);
       }
-    };
+    });
   }, []);
   if (loading) return <Loading />;
   return (

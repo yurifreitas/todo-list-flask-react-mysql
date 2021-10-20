@@ -51,7 +51,6 @@ def add_task():
             "INSERT INTO db_tasks.tasks (title,descript) VALUES ('" + str(title) + "','" + str(descript) + "')")
 
         idTask = cur.lastrowid
-        logging.error(connection)
         connection.commit()
         result = {
             'title': title,

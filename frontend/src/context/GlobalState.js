@@ -27,13 +27,16 @@ export const GlobalProvider = ({ children }) => {
   useEffect(() => {
     getItemList();
   }, []);
-  const addItemToList = (item) => {
-    addToList(item);
-    dispatch({
-      type: 'ADD_ITEM',
-      payload: item,
+  const addItemToList = useCallback(async (item) => {
+    await addToList(item).then((resp) => {
+      if (resp.length > 0) {
+        dispatch({
+          type: 'ADD_ITEM',
+          payload: resp,
+        });
+      }
     });
-  };
+  });
   function UpdateItemFromList(item) {
     updateItem(item);
     dispatch({
