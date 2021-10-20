@@ -25,12 +25,15 @@ def get_all_tasks():
                        for x in cur.description]  # this will extract row headers
         rv = cur.fetchall()
         json_data = []
+        cur.close()
+        connection.close()
         if rv:
             for result in rv:
                 json_data.append(dict(zip(row_headers, result)))
             return json.dumps(json_data), 200
         else:
             return json.dumps(json_data), 200
+
     except:
         error = "Erro to get a tasklist"
         logging.error(error)
@@ -47,13 +50,17 @@ def add_task():
         cur.execute(
             "INSERT INTO db_tasks.tasks (title,descript) VALUES ('" + str(title) + "','" + str(descript) + "')")
 
+        idTask = cur.lastrowid
+        logging.error(connection)
+        connection.commit()
         result = {
             'title': title,
             'descricao': descript,
-            'id': cur.lastrowid
+            'id': idTask
         }
-        connection.commit()
 
+        cur.close()
+        connection.close()
         return jsonify({"result": result}), 200
     except:
         error = "Erro on create task"+title
@@ -77,7 +84,8 @@ def update_task(id):
             'title': title,
             'descricao': descript
         }
-
+        cur.close()
+        connection.close()
         return jsonify({"result": result}), 200
     except:
         error = "Erro on update task"+id
@@ -92,6 +100,8 @@ def delete_task(id):
     try:
         cur.execute("DELETE FROM db_tasks.tasks where id = " + id)
         connection.commit()
+        cur.close()
+        connection.close()
         result = {'message': 'task deleted'}
         return jsonify({"result": result}), 200
     except:
@@ -108,6 +118,8 @@ def delete_all_task():
         cur.execute("DELETE FROM db_tasks.tasks")
         connection.commit()
         result = {'message': 'tasks deleted'}
+        cur.close()
+        connection.close()
         return jsonify({"result": result}), 200
     except:
         error = "Erro on delete tasks"

@@ -14,6 +14,7 @@
     "react-icons": "^4.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-use": "^17.3.1",
     "uuid": "^8.3.2",
     "web-vitals": "^2.1.0"
   },
@@ -22,6 +23,7 @@
     "build": "craco build",
     "test": "jest --verbose ./frontend",
     "test:debug": "jest --inspect-brk test --runInBand --no-cache",
+    "start.dev": "nodemon",
     "lint": "eslint . --ext .js",
     "lint-fix": "eslint --fix",
     "eject": "react-scripts eject"
@@ -58,6 +60,7 @@
     "husky": "^7.0.2",
     "jest": "26.6.0",
     "lint-staged": "^11.2.3",
+    "nodemon": "^2.0.14",
     "postcss": "^7.0.36",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7"
   },

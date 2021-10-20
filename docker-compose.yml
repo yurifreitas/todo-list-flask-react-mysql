@@ -2,6 +2,7 @@ version: "3.8"
 services:
   db:
     image: mysql:5.7
+    command: --max_allowed_packet=32505856 --wait-timeout=28800 --max-connections=1000
     ports:
       - "32000:3306"
     environment:
