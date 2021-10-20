@@ -1,3 +1,4 @@
+import React from 'react';
 import { HiOutlineX } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';

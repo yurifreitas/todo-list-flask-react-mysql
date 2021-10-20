@@ -21,6 +21,8 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
+    "lint": "eslint . --ext .js",
+    "lint-fix": "eslint --fix",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -44,16 +46,11 @@
   "devDependencies": {
     "autoprefixer": "^9.8.6",
     "babel-eslint": "^10.1.0",
-    "eslint": "^8.0.1",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.25.2",
+    "eslint": "^7.11.0",
     "eslint-plugin-react": "^7.26.1",
     "husky": "^7.0.2",
     "lint-staged": "^11.2.3",
     "postcss": "^7.0.36",
-    "prettier": "^2.4.1",
-    "pretty-quick": "^3.1.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7"
   },
   "proxy": "http://app:5000"

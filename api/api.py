@@ -25,9 +25,12 @@ def get_all_tasks():
                        for x in cur.description]  # this will extract row headers
         rv = cur.fetchall()
         json_data = []
-        for result in rv:
-            json_data.append(dict(zip(row_headers, result)))
-        return json.dumps(json_data), 200
+        if rv:
+            for result in rv:
+                json_data.append(dict(zip(row_headers, result)))
+            return json.dumps(json_data), 200
+        else:
+            return json.dumps(json_data), 200
     except:
         error = "Erro to get a tasklist"
         logging.error(error)

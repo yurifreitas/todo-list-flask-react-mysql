@@ -1,32 +1,34 @@
-import { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { HiOutlineTrash, HiOutlineCheck } from 'react-icons/hi';
-import {GlobalContext} from '../context/GlobalState';
+import React from "react";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { HiOutlineTrash, HiOutlineCheck } from "react-icons/hi";
+import {GlobalContext} from "../context/GlobalState";
 
 
 function TodoList() {
 
-  const { taskList } =  useContext(GlobalContext);
+  const {  taskList } = useContext(GlobalContext);
+  console.log(taskList);
 
   return (
-    <div className='max-w-xl pt-8 pb-12 mx-auto'>
+    <div className="max-w-xl pt-8 pb-12 mx-auto">
       {taskList.length === 0 ? (
-        <p className='italic text-gray-600'>Nenhuma Tarefa encontrada.</p>
+        <p className="italic text-gray-600">Nenhuma Tarefa encontrada.</p>
       ) : (
         <div>
-          <div className='flex items-center justify-between'>
-            <h6 className='text-base font-medium text-gray-600'>Sua Lista</h6>
-            <p className='text-sm font-light text-gray-500'>
-              {taskList.length} item{taskList.length > 1 && 's'}
+          <div className="flex items-center justify-between">
+            <h6 className="text-base font-medium text-gray-600">Sua Lista</h6>
+            <p className="text-sm font-light text-gray-500">
+              {taskList.length} item{taskList.length > 1 && "s"}
             </p>
           </div>
-          <ul className='pt-5'>
+          <ul className="pt-5">
             {taskList.map((item) => (
               <li
                 key={item._id}
-                className='flex flex-row items-start justify-between py-2.5'
+                className="flex flex-row items-start justify-between py-2.5"
               >
-                <div className='flex flex-col items-start justify-start gap-x-5'>
+                <div className="flex flex-col items-start justify-start gap-x-5">
                   <Link
                     to={`/todo/${item._id}`}
                     id={item.id}
@@ -34,13 +36,13 @@ function TodoList() {
                   >
                     {item.isCompleted && (
                       <HiOutlineCheck
-                        className='inline mr-1.5 text-gray-600'
+                        className="inline mr-1.5 text-gray-600"
                         size={14}
                       />
                     )}
                     <h6
                       className={`${
-                        item.isCompleted ? 'text-gray-600' : 'text-indigo-600'
+                        item.isCompleted ? "text-gray-600" : "text-indigo-600"
                       } hover:text-indigo-400 inline transition duration-300 ease-in-out text-base md:text-lg font-medium`}
                     >
                       {item.title}
@@ -48,23 +50,23 @@ function TodoList() {
 
                     <p
                       className={`text-sm text-gray-500 font-light ${
-                        item.description ? 'not-italic' : 'italic'
+                        item.description ? "not-italic" : "italic"
                       }`}
                     >
-                      {item.description ? item.description : 'No description'}
+                      {item.description ? item.description : "No description"}
                     </p>
                   </Link>
                 </div>
-                <div className='flex flex-row items-center gap-x-4'>
+                <div className="flex flex-row items-center gap-x-4">
                   <button
-                    type='button'
-                    className='transition duration-300 ease-in-out'
+                    type="button"
+                    className="transition duration-300 ease-in-out"
                     onClick={() => {
-                      console.log('Delete');
+                      console.log("Delete");
                     }}
                   >
                     <HiOutlineTrash
-                      className='text-gray-600 transition duration-300 ease-in-out rounded-full hover:text-red-500'
+                      className="text-gray-600 transition duration-300 ease-in-out rounded-full hover:text-red-500"
                       size={20}
                     />
                   </button>

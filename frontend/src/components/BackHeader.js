@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Wrapper from '../components/Wrapper';
 import { HiOutlineChevronLeft } from 'react-icons/hi';
 
+import React from 'react';
 function BackHeader({ link }) {
   return (
     <Wrapper className='p-4 my-5'>
