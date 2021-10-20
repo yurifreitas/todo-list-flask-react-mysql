@@ -28,11 +28,11 @@ export const GlobalProvider = ({ children }) => {
     getItemList();
   }, []);
   const addItemToList = useCallback(async (item) => {
-    await addToList(item).then((resp) => {
-      if (resp.length > 0) {
+    addToList(item).then((response) => {
+      if (response.data.result) {
         dispatch({
           type: 'ADD_ITEM',
-          payload: resp,
+          payload: response.data.result,
         });
       }
     });

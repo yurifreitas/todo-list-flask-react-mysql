@@ -1,16 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { GlobalContext } from '../context/GlobalState';
-import { getList } from '../services/ListFunctions';
 function AddNew() {
   const { register, handleSubmit } = useForm();
-  const { getItemList } = useContext(GlobalContext);
+  const { getItemList, addItemToList, taskList } = useContext(GlobalContext);
 
   const postNewData = async (data) => {
-    await getList(data).then(() => {
-      getItemList();
-    });
+    await addItemToList(data);
   };
+  useEffect(() => {
+    return () => {
+      getItemList();
+    };
+  }, [taskList]);
 
   return (
     <div className="max-w-xl mx-auto border border-gray-200 rounded-md bg-gray-50">

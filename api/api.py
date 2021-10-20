@@ -54,7 +54,7 @@ def add_task():
         connection.commit()
         result = {
             'title': title,
-            'descricao': descript,
+            'descript': descript,
             'id': idTask
         }
 
@@ -81,7 +81,7 @@ def update_task(id):
 
         result = {
             'title': title,
-            'descricao': descript
+            'descript': descript
         }
         cur.close()
         connection.close()
