@@ -2,16 +2,17 @@ import axios from "axios";
 const headers = {
   headers: { "Content-type": "application/json" },
 };
+const url = "http://localhost:3000";
 export const getList = async () => {
-  var data;
-  const { data: response } = await axios.get("api/tasks", headers);
+  var data = [];
+  const { data: response } = await axios.get(url+"/api/tasks", headers);
   Object.keys(response).forEach((key) => {
     var val = response[key];
-    var isCompleted = { isCompleted: true };
+    var isCompleted =  true ;
     if (!val.title | !val.id | !val.descript) {
-      isCompleted = { isCompleted: true };
+      isCompleted =  false ;
     }
-    data.push(...val, isCompleted);
+    data.push({...val, isCompleted:isCompleted});
   });
   return data;
 };
@@ -19,7 +20,7 @@ export const getList = async () => {
 export const addToList = (data) => {
   axios
     .post(
-      "api/task",
+      url+"/api/task",
       {
         title: data.title,
         descript: data.descript,
@@ -27,35 +28,35 @@ export const addToList = (data) => {
       headers
     )
     .then((res) => {
-      console.log(res.json());
+      console.log(res.data);
     });
 };
 
 export const deleteAllItem = () => {
   axios
-    .delete(`clearall`, headers)
+    .delete(url+`/api/task/clearall`, headers)
     .then((res) => {
-      console.log(res.json());
+      console.log(res.data);
     })
     .catch((res) => {
-      console.log(res.json());
+      console.log(res.data);
     });
 };
-export const deleteItem = (id) => {
+export const deleteItem = (item) => {
   axios
-    .delete(`${id}`, headers)
+    .delete(url+`/api/task/${item.id}`, headers)
     .then((res) => {
-      console.log(res.json());
+      console.log(res.data);
     })
     .catch((res) => {
-      console.log(res.json());
+      console.log(res.data);
     });
 };
 
 export const updateItem = (data, id) => {
   axios
     .put(
-      `${id}`,
+      url+`/api/task/${id}`,
       {
         title: data.title,
         descript: data.descript,
@@ -63,9 +64,9 @@ export const updateItem = (data, id) => {
       headers
     )
     .then((res) => {
-      console.log(res.json());
+      console.log(res.data);
     })
     .catch((res) => {
-      console.log(res.json());
+      console.log(res.data);
     });
 };

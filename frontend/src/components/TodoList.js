@@ -8,9 +8,7 @@ function TodoList() {
   const { taskList, getItemList, removeItemFromList } =
     useContext(GlobalContext);
   useEffect(() => {
-    getItemList().then(() => {
-      console.log(taskList);
-    });
+    getItemList();
   }, [taskList]);
 
   return (
@@ -33,7 +31,7 @@ function TodoList() {
               >
                 <div className="flex flex-col items-start justify-start gap-x-5">
                   <Link
-                    to={`/todo/${item.id}`}
+                    to={`/detail/${item.id}`}
                     id={item.id}
                     htmlFor={item.title}
                   >

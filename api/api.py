@@ -46,11 +46,13 @@ def add_task():
     try:
         cur.execute(
             "INSERT INTO db_tasks.tasks (title,descript) VALUES ('" + str(title) + "','" + str(descript) + "')")
-        connection.commit()
+
         result = {
             'title': title,
-            'descricao': descript
+            'descricao': descript,
+            'id': cur.lastrowid
         }
+        connection.commit()
 
         return jsonify({"result": result}), 200
     except:

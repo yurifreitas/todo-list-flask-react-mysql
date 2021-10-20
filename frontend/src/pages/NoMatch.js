@@ -10,18 +10,18 @@ function NoMatch() {
   return (
     <>
       <Helmet>
-        <meta name='description' content='Page not found' />
-        <title>{`Error 404: ${location.pathname} not found`}</title>
+        <meta name='description' content='pagina não foi encontrada' />
+        <title>{`Error 404: ${location.pathname} não encontrada`}</title>
       </Helmet>
       <Wrapper className='p-4'>
         <div className='container'>
           <div className='max-w-xl mx-auto'>
             <div className='py-4'>
               <h1 className='mb-4 text-2xl font-semibold'>
-                404 Error, page not found
+                404 Error, pagina não encontrada
               </h1>
               <h3 className='text-lg font-normal text-gray-700'>
-                No match for <code>{location.pathname}</code>
+                A Pagina  <code>{location.pathname}</code> não foi encontrada
               </h3>
               <div className='mt-5'>
                 <Link

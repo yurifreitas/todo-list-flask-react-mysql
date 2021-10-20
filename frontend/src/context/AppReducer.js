@@ -1,13 +1,19 @@
+
 export default (state, action) => {
   switch (action.type) {
     case "GET_ITEM":
-      return {
-        taskList: [action.payload],
-      };
+      if(JSON.stringify(state.taskList) != JSON.stringify(action.payload)){
+        return {taskList:action.payload}
+      }else{
+      return state
+    }
     case "ADD_ITEM":
-      return {
-        taskList: [action.payload, ...state.taskList],
-      };
+      var isCompleted =  true ;
+      if (!action.payload.title | !action.payload.id | !action.payload.descript) {
+        isCompleted =  false ;
+      }
+      state.taskList.push({...action.payload, isCompleted:isCompleted})
+      return {taskList:state.taskList}
     case "UPDATE_ITEM":
       return state.taskList.map((item) => {
         if (item === action.payload) {
