@@ -2,9 +2,10 @@ import axios from "axios";
 const headers = {
   headers: { "Content-type": "application/json" },
 };
+const url = "http://localhost:3000";
 export const getList = async () => {
   var data = [];
-  const { data: response } = await axios.get("api/tasks", headers);
+  const { data: response } = await axios.get(url+"/api/tasks", headers);
   Object.keys(response).forEach((key) => {
     var val = response[key];
     var isCompleted =  true ;
@@ -19,7 +20,7 @@ export const getList = async () => {
 export const addToList = (data) => {
   axios
     .post(
-      "api/task",
+      url+"/api/task",
       {
         title: data.title,
         descript: data.descript,
@@ -33,7 +34,7 @@ export const addToList = (data) => {
 
 export const deleteAllItem = () => {
   axios
-    .delete(`api/task/clearall`, headers)
+    .delete(url+`/api/task/clearall`, headers)
     .then((res) => {
       console.log(res.data);
     })
@@ -43,7 +44,7 @@ export const deleteAllItem = () => {
 };
 export const deleteItem = (item) => {
   axios
-    .delete(`api/task/${item.id}`, headers)
+    .delete(url+`/api/task/${item.id}`, headers)
     .then((res) => {
       console.log(res.data);
     })
@@ -55,7 +56,7 @@ export const deleteItem = (item) => {
 export const updateItem = (data, id) => {
   axios
     .put(
-      `api/task/${id}`,
+      url+`/api/task/${id}`,
       {
         title: data.title,
         descript: data.descript,

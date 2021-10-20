@@ -5,23 +5,28 @@ import { Header, BackHeader, Wrapper } from '../components';
 import { HiOutlineTrash, HiOutlineCheck } from "react-icons/hi";
 import { GlobalContext } from "../context/GlobalState";
 import Loading from '../components/Loading';
+import { useHistory } from "react-router-dom";
 
 function ItemDetails() {
-  var t = {id:1,title:"",descript:"",isCompleted:false}
+  const history = useHistory()
   const [loading, setLoading] = useState(false);
-  const [task, setTask] = useState(t);
+  const [task, setTask] = useState("");
   const { taskList, removeItemFromList,getItemList } =
     useContext(GlobalContext);
   const id =window.location.pathname.split('/').pop()
   useEffect(() => {
-    if(taskList[parseInt(id)-1] == []){
+    if(taskList.length==0 || taskList[parseInt(id)-1] == []){
       setLoading(true);
       getItemList();
+      if(taskList.length==0||taskList[parseInt(id)-1] == []){
+        history.push("/")
+      }
     }else{
-      setTask(taskList[id]);
+      setTask(taskList[parseInt(id)-1]);
+      setLoading(false);
     }
   }, [taskList])
-  if (loading) return <Loading />;
+  if (loading) return (<Loading />);
   return (
     <>
       <Helmet>

@@ -45,12 +45,18 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/plugin-transform-react-jsx": "^7.14.9",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-react": "^7.14.5",
+    "@testing-library/react": "^12.1.2",
     "autoprefixer": "^9.8.6",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "26.6.0",
     "eslint": "^7.11.0",
     "eslint-plugin-react": "^7.26.1",
     "husky": "^7.0.2",
-    "jest": "^27.3.1",
+    "jest": "26.6.0",
     "lint-staged": "^11.2.3",
     "postcss": "^7.0.36",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7"

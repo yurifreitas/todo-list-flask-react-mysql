@@ -3,6 +3,7 @@ module.exports = {
     moduleFileExtensions: [
         'js',
         'ts',
+        'jsx',
         'tsx',
         'json',
         'node',
@@ -17,4 +18,7 @@ module.exports = {
     ],
     roots: [ '<rootDir>/__tests__/'],
     collectCoverage: true,
+    transform : {
+    "\\.[jt]sx?$": "babel-jest"
+  },
 };
