@@ -23,41 +23,41 @@ export const GlobalProvider = ({ children }) => {
       if (resp.length > 0) {
         dispatch({
           type: "GET_ITEM",
-          payload: resp.data,
+          payload: resp,
         });
       }
     });
   };
   const addItemToList = (item) => {
-    addToList(item).then(() => {
+    addToList(item)
       dispatch({
         type: "ADD_ITEM",
         payload: item,
       });
-    });
+
   };
   function UpdateItemFromList(item) {
-    updateItem(item).then(() => {
+    updateItem(item)
       dispatch({
         type: "UPDATE_ITEM",
         payload: item,
       });
-    });
+
   }
   function removeItemFromList(item) {
-    deleteItem(item).then(() => {
+    deleteItem(item)
       dispatch({
         type: "REMOVE_ITEM",
         payload: item,
       });
-    });
+
   }
   function removeAllItemFromList() {
-    deleteAllItem().then(() => {
+    deleteAllItem()
       dispatch({
         type: "REMOVE_ALL_ITEM",
       });
-    });
+
   }
 
   return (

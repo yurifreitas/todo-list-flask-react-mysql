@@ -3,15 +3,15 @@ const headers = {
   headers: { "Content-type": "application/json" },
 };
 export const getList = async () => {
-  var data;
+  var data = [];
   const { data: response } = await axios.get("api/tasks", headers);
   Object.keys(response).forEach((key) => {
     var val = response[key];
-    var isCompleted = { isCompleted: true };
+    var isCompleted =  true ;
     if (!val.title | !val.id | !val.descript) {
-      isCompleted = { isCompleted: true };
+      isCompleted =  false ;
     }
-    data.push(...val, isCompleted);
+    data.push({...val, isCompleted:isCompleted});
   });
   return data;
 };
@@ -27,35 +27,35 @@ export const addToList = (data) => {
       headers
     )
     .then((res) => {
-      console.log(res.json());
+      console.log(res.data);
     });
 };
 
 export const deleteAllItem = () => {
   axios
-    .delete(`clearall`, headers)
+    .delete(`api/task/clearall`, headers)
     .then((res) => {
-      console.log(res.json());
+      console.log(res.data);
     })
     .catch((res) => {
-      console.log(res.json());
+      console.log(res.data);
     });
 };
-export const deleteItem = (id) => {
+export const deleteItem = (item) => {
   axios
-    .delete(`${id}`, headers)
+    .delete(`api/task/${item.id}`, headers)
     .then((res) => {
-      console.log(res.json());
+      console.log(res.data);
     })
     .catch((res) => {
-      console.log(res.json());
+      console.log(res.data);
     });
 };
 
 export const updateItem = (data, id) => {
   axios
     .put(
-      `${id}`,
+      `api/task/${id}`,
       {
         title: data.title,
         descript: data.descript,
@@ -63,9 +63,9 @@ export const updateItem = (data, id) => {
       headers
     )
     .then((res) => {
-      console.log(res.json());
+      console.log(res.data);
     })
     .catch((res) => {
-      console.log(res.json());
+      console.log(res.data);
     });
 };

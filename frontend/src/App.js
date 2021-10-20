@@ -20,7 +20,7 @@ function App() {
       <Switch>
         <ProtectedRoute exact path='/' component={Home} />
         <ProtectedRoute exact path='/new' component={AddNew} />
-        <ProtectedRoute exact strict path='/todo/:id' component={ItemDetails} />
+        <ProtectedRoute exact strict path='/detail/:id' component={ItemDetails} />
         <Route exact path='/landing' component={Landing} />
         <Route path='*' component={NoMatch} />
       </Switch>
